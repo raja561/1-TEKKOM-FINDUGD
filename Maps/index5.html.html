@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+  <title>Maps</title>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCHLqk7ajEQviaeDoaEOiYvxWAtuATm5oY&callback=initMap">
+          type="text/javascript"></script>
+</head>
+<body>
+  <div id="map" style="width: 2500px; height: 1000px;"></div>
+
+  <script type="text/javascript">
+    var locations = [
+      ['Rumah Sakit Zainal Abidin', 5.564737815170873, 95.33797383805619, 1],
+      ['Rumah Sakit Cempaka', 5.553717733329986, 95.33466935583637, 2],
+      ['Rumah Sakit Kesdam Iskandar Muda', 5.555853424181697, 95.32436967364355, 3],
+      ['RSIA Cempaka Az-Zahra', 5.567855862732634, 95.32930493762477, 4],
+      ['Rumah Sakit Ibu dan Anak (RSIA) Aceh', 5.55033866580897, 95.31203724207484, 5],
+      ['Rumah Sakit Bhayangkara Polda Aceh', 5.530437922338833, 95.2962149611873, 6],
+      ['RSUD Meuraxa', 5.520855483822006, 95.31812886819138, 7],
+      ['RS Prince Nayef Unsyiah', 5.564447369653644, 95.37241509360607, 8],
+      ['RS Teungku Fakinah', 5.530344342468527, 95.30433955831114, 9],
+
+    ];
+
+    var map = new google.maps.Map(document.getElementById('map'), {
+      zoom: 9,
+      center: new google.maps.LatLng( 5.570272815871374, 95.36969914926885),
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    });
+
+    var infowindow = new google.maps.InfoWindow();
+maxWidth: 200
+    var marker, i;
+
+    for (i = 0; i < locations.length; i++) {
+      marker = new google.maps.Marker({
+        position: new google.maps.LatLng(locations[i][1], locations[i][2]),
+        map: map
+      });
+
+      google.maps.event.addListener(marker, 'click', (function(marker, i) {
+        return function() {
+          infowindow.setContent(locations[i][0]);
+
+          infowindow.open(map, marker);
+
+        }
+      })(marker, i));
+    }
+  </script>
+</body>
+</html>
